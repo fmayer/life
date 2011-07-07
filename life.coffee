@@ -41,7 +41,7 @@ define(['utils/utils', 'utils/underscore'],
     constructor: (@field) ->
     neighbours: (x, y) ->
       utils.sum(
-        @field.getOrElse(x + dx, y + dy, 0) for dx, dy in neigh
+        @field.getOrElse(x + d[0], y + d[1], 0) for d in neigh
       )
     tick: ->
       newfield = new Field(@field.xsize, @field.ysize)
@@ -61,7 +61,7 @@ define(['utils/utils', 'utils/underscore'],
     for x in [0...life.field.xsize]
       for y in [0...life.field.ysize]
         if life.field.get(x, y)
-          ctx.fill(x * sq, y * sq, sq, sq)
+          ctx.fillRect(x * sq, y * sq, sq, sq)
 
   return {Field: Field, Life: Life, draw: draw}
 )
