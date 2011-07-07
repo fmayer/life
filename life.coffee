@@ -18,8 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-define(['utils/underscore', 'utils/utils'],
-(_, utils) ->
+define(['utils/utils', 'utils/underscore'],
+(utils) ->
   neigh = [
     [0, 0], [0, 1], [0, -1], [1, 0], [1, 1],
     [1, -1], [-1, 0], [-1, 1], [-1, -1]
@@ -27,9 +27,9 @@ define(['utils/underscore', 'utils/utils'],
 
   class Field
     constructor: (@xsize, @ysize) ->
-      @field = ((0 for i in ysize) for i in xsize)
+      @field = ((0 for i in [0...ysize]) for i in [0...xsize])
     getOrElse: (x, y, def=null) ->
-      if x < 0 or x >= @size or y < 0 or y >= @ysize
+      if x < 0 or x >= @xsize or y < 0 or y >= @ysize
         def
       else
         @field[x][y]
@@ -54,5 +54,14 @@ define(['utils/underscore', 'utils/utils'],
           else if @neighbours(x, y) == 3
             newfield.set(x, y)
       @field = newfield
-  return {Field: Field, Life: Life}
+
+  draw = (life, canvas) ->
+    ctx = canvas.getContext('2d')
+    sq = _.min([canvas.height, canvas.width]) / _.max([life.field.ysize, life.field.xsize])
+    for x in [0...life.field.xsize]
+      for y in [0...life.field.ysize]
+        if life.field.get(x, y)
+          ctx.fill(x * sq, y * sq, sq, sq)
+
+  return {Field: Field, Life: Life, draw: draw}
 )
