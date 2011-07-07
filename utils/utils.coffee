@@ -24,4 +24,6 @@ define(
       for elem in arr
         init += elem
       init
+
+    return {sum: sum}
 )

@@ -53,4 +53,5 @@ define(['utils/underscore', 'utils/utils'],
               newfield.set(x, y)
           else if @neighbours(x, y) == 3
             newfield.set(x, y)
+  return {Field: Field, Life: Life}
 )
