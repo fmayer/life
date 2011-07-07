@@ -45,13 +45,14 @@ define(['utils/underscore', 'utils/utils'],
       )
     tick: ->
       newfield = new Field(@field.xsize, @field.ysize)
-      for x in @field.xsize
-        for y in @field.ysize
+      for x in [0...@field.xsize]
+        for y in [0...@field.ysize]
           if @field.get(x, y)
             n = @neighbours(x, y)
             if n == 2 or n == 3
               newfield.set(x, y)
           else if @neighbours(x, y) == 3
             newfield.set(x, y)
+      @field = newfield
   return {Field: Field, Life: Life}
 )
