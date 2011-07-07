@@ -56,17 +56,15 @@ require(['life', 'utils/underscore', 'utils/jquery'],
           newfield.set(x, y) if Math.random() <= alive
       life.field = newfield
     )
-    $("#pause").click(->
-      running = false
-      window.clearInterval(interval)
-      $("#pause").attr('disabled','disabled')
-      $("#resume").removeAttr('disabled')
-    )
-    $("#resume").click(->
-      running = true
-      interval = window.setInterval(animate, 500)
-      $("#resume").attr('disabled','disabled')
-      $("#pause").removeAttr('disabled')
+    $("#toggle").click(->
+      if running
+        running = false
+        window.clearInterval(interval)
+        $("#toggle").attr('value','Play')
+      else
+        running = true
+        interval = window.setInterval(animate, 500)
+        $("#toggle").attr('value','Pause')
     )
   )
 )
