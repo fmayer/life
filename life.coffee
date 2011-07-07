@@ -27,7 +27,7 @@ define(['utils/utils', 'utils/underscore'],
 
   class Field
     constructor: (@xsize, @ysize) ->
-      @field = ((0 for i in [0...ysize]) for i in [0...xsize])
+      @field = ((0 for i in [0...ysize]) for u in [0...xsize])
     getOrElse: (x, y, def=null) ->
       if x < 0 or x >= @xsize or y < 0 or y >= @ysize
         def
