@@ -26,6 +26,13 @@ define(
       init
     max = (x, y) -> if x > y then x else y
     min = (x, y) -> if x < y then x else y
+    mod = (x, y) ->
+      m = x % y
+      if m < 0
+        m + y
+      else
+        m
+    rem = (x, y) -> x % y
 
-    return {sum: sum, min: min, max: max}
+    return {sum: sum, min: min, max: max, mod: mod, rem: rem}
 )

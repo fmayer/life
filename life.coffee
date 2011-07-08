@@ -41,7 +41,7 @@ define(['utils/utils'],
     constructor: (@field) ->
     neighbours: (x, y) ->
       utils.sum(
-        @field.getOrElse(x + d[0], y + d[1], 0) for d in neigh
+        @field.get(utils.mod(x + d[0], @field.xsize), utils.mod(y + d[1], @field.ysize)) for d in neigh
       )
     tick: ->
       newfield = new Field(@field.xsize, @field.ysize)
