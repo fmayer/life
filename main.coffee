@@ -18,8 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require(['life', 'utils/utils', 'utils/underscore', 'utils/jquery'],
-(li, utils) ->
+require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquery', 'utils/json2'],
+(li, utils, b64) ->
   leftTop = (elem) ->
     x = 0
     y = 0
@@ -147,6 +147,9 @@ require(['life', 'utils/utils', 'utils/underscore', 'utils/jquery'],
       game.redrawAll()
     )
 
+    if document.location.hash
+      for v in JSON.parse(b64.decode(document.location.hash[1...]))
+        game.life.field.set(v[0], v[1])
     game.drawAll()
 
     $("#toggle").click(->
@@ -161,6 +164,12 @@ require(['life', 'utils/utils', 'utils/underscore', 'utils/jquery'],
     )
     $("#freq").change(->
       sched.setInterval(1000 / parseFloat($(@).val()))
+    )
+    $("#perma").click(->
+      l = window.location
+      $("#permap").val(
+        l.protocol + '//' + l.host + l.pathname + l.search + "#" + b64.encode(JSON.stringify(game.life.field.getSet())).replace('\n', '')
+      )
     )
   )
 )

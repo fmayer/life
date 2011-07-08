@@ -36,6 +36,13 @@ define(['utils/utils'],
     get: (x, y) -> @field[x][y]
     set: (x, y, v=1) -> @field[x][y] = v
     unset: (x, y) -> @set(x, y, 0)
+    getSet: ->
+      ret = []
+      for x in [0...@xsize]
+        for y in [0...@ysize]
+          if @field[x][y]
+            ret.push([x, y])
+      ret
 
   class Life
     constructor: (@field) ->
