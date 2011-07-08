@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-define(['utils/utils', 'utils/underscore'],
+define(['utils/utils'],
 (utils) ->
   neigh = [
     [0, 1], [0, -1], [1, 0], [1, 1],

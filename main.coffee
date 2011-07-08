@@ -38,6 +38,9 @@ require(['life', 'utils/utils', 'utils/jquery'],
       if not gap?
         @gap = 0.5
       @ctx = canvas.getContext('2d')
+      @down = false
+
+      $(canvas).mousedown(=> @down = true)
 
       $(canvas).mousemove((evt) =>
         d = leftTop(@canvas)
@@ -47,13 +50,17 @@ require(['life', 'utils/utils', 'utils/jquery'],
         x = Math.floor(x / sq)
         y = Math.floor(y / sq)
 
+        if @down
+          @life.field.set(x, y)
+
         @clearCanvas()
         @drawLife()
 
-        @ctx.fillStroke = '#6D7B8D'
-        for v in @brush
-          @ctx.fillRect((v[0] + x) * sq, (v[1] + y) * sq, sq, sq)
-        @ctx.fillStroke = '#000'
+        if not @down
+          @ctx.fillStroke = '#6D7B8D'
+          for v in @brush
+            @ctx.fillRect((v[0] + x) * sq, (v[1] + y) * sq, sq, sq)
+          @ctx.fillStroke = '#000'
 
         @drawGrid()
       )
@@ -65,12 +72,16 @@ require(['life', 'utils/utils', 'utils/jquery'],
         sq = @getBox()
         x = Math.floor(x / sq)
         y = Math.floor(y / sq)
-        @life.field.set(x, y, not @life.field.get(x, y))
+        if @down
+          @down = false
+        else
+          @life.field.set(x, y, not @life.field.get(x, y))
         @redrawAll()
       )
 
       $(canvas).mouseleave((evt) =>
         @redrawAll()
+        @down = false
       )
 
     drawGrid: () ->
