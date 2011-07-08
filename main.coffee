@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require(['life', 'utils/utils', 'utils/jquery'],
+require(['life', 'utils/utils', 'utils/underscore', 'utils/jquery'],
 (li, utils) ->
   leftTop = (elem) ->
     x = 0
@@ -38,25 +38,28 @@ require(['life', 'utils/utils', 'utils/jquery'],
       if not gap?
         @gap = 0.5
       @ctx = canvas.getContext('2d')
-      @down = false
+      @down = null
 
-      $(canvas).mousedown(=> @down = true)
+      $(canvas).mousedown((evt) => @down = @getMousePos(evt))
+      $(canvas).mouseup((evt) =>
+        pos = @getMousePos(evt)
+        if _.isEqual(@down, pos)
+          [x, y] = pos
+          @life.field.set(x, y, not @life.field.get(x, y))
+          @redrawAll()
+        @down = null
+      )
 
       $(canvas).mousemove((evt) =>
-        d = leftTop(@canvas)
-        x = evt.clientX - d[0]
-        y = evt.clientY - d[1]
         sq = @getBox()
-        x = Math.floor(x / sq)
-        y = Math.floor(y / sq)
-
-        if @down
+        [x, y] = @getMousePos(evt)
+        if @down != null
           @life.field.set(x, y)
 
         @clearCanvas()
         @drawLife()
 
-        if not @down
+        if @down == null
           @ctx.fillStroke = '#6D7B8D'
           for v in @brush
             @ctx.fillRect((v[0] + x) * sq, (v[1] + y) * sq, sq, sq)
@@ -65,24 +68,19 @@ require(['life', 'utils/utils', 'utils/jquery'],
         @drawGrid()
       )
 
-      $(canvas).click((evt) =>
-        d = leftTop(@canvas)
-        x = evt.clientX - d[0]
-        y = evt.clientY - d[1]
-        sq = @getBox()
-        x = Math.floor(x / sq)
-        y = Math.floor(y / sq)
-        if @down
-          @down = false
-        else
-          @life.field.set(x, y, not @life.field.get(x, y))
-        @redrawAll()
-      )
-
       $(canvas).mouseleave((evt) =>
         @redrawAll()
-        @down = false
+        @down = null
       )
+
+    getMousePos: (evt) ->
+      d = leftTop(@canvas)
+      x = evt.clientX - d[0]
+      y = evt.clientY - d[1]
+      sq = @getBox()
+      x = Math.floor(x / sq)
+      y = Math.floor(y / sq)
+      return [x, y]
 
     drawGrid: () ->
       @ctx.lineWidth = 0.2
