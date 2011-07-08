@@ -55,13 +55,5 @@ define(['utils/utils', 'utils/underscore'],
             newfield.set(x, y)
       @field = newfield
 
-  draw = (life, canvas, gap=0.5) ->
-    ctx = canvas.getContext('2d')
-    sq = utils.min(canvas.height, canvas.width) / utils.max(life.field.ysize, life.field.xsize)
-    for x in [0...life.field.xsize]
-      for y in [0...life.field.ysize]
-        if life.field.get(x, y)
-          ctx.fillRect(x * sq + gap, y * sq + gap, sq - gap, sq - gap)
-
-  return {Field: Field, Life: Life, draw: draw}
+  return {Field: Field, Life: Life}
 )
