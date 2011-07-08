@@ -75,8 +75,8 @@ require(['life', 'utils/utils', 'utils/underscore', 'utils/jquery'],
 
     getMousePos: (evt) ->
       d = leftTop(@canvas)
-      x = evt.clientX - d[0]
-      y = evt.clientY - d[1]
+      x = evt.pageX - d[0]
+      y = evt.pageY - d[1]
       sq = @getBox()
       x = Math.floor(x / sq)
       y = Math.floor(y / sq)
