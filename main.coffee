@@ -122,7 +122,8 @@ require(['life', 'utils/underscore', 'utils/jquery'],
       $("#toggle").attr('value', if sched.running() then 'Play' else 'Pause')
       sched.toggle()
     )
+    $("#freq").change(->
+      sched.setInterval(1000 / parseFloat($(@).val()))
+    )
   )
 )
-
-
