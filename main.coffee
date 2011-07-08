@@ -153,6 +153,12 @@ require(['life', 'utils/utils', 'utils/underscore', 'utils/jquery'],
       $("#toggle").attr('value', if sched.running() then 'Play' else 'Pause')
       sched.toggle()
     )
+    $("#clear").click(->
+      for x in [0...game.life.field.xsize]
+        for y in [0...game.life.field.ysize]
+          game.life.field.unset(x, y)
+      game.redrawAll()
+    )
     $("#freq").change(->
       sched.setInterval(1000 / parseFloat($(@).val()))
     )
