@@ -18,8 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require(['life', 'utils/underscore', 'utils/jquery'],
-(li) ->
+require(['life', 'utils/utils', 'utils/jquery'],
+(li, utils) ->
   leftTop = (elem) ->
     x = 0
     y = 0
@@ -43,7 +43,7 @@ require(['life', 'utils/underscore', 'utils/jquery'],
         d = leftTop(@canvas)
         x = evt.clientX - d[0]
         y = evt.clientY - d[1]
-        sq = _.min([@canvas.height, @canvas.width]) / _.max([@life.field.ysize, @life.field.xsize])
+        sq = @getBox()
         x = Math.floor(x / sq)
         y = Math.floor(y / sq)
 
@@ -62,7 +62,7 @@ require(['life', 'utils/underscore', 'utils/jquery'],
         d = leftTop(@canvas)
         x = evt.clientX - d[0]
         y = evt.clientY - d[1]
-        sq = _.min([@canvas.height, @canvas.width]) / _.max([@life.field.ysize, @life.field.xsize])
+        sq = @getBox()
         x = Math.floor(x / sq)
         y = Math.floor(y / sq)
         @life.field.set(x, y, not @life.field.get(x, y))
@@ -75,7 +75,7 @@ require(['life', 'utils/underscore', 'utils/jquery'],
 
     drawGrid: () ->
       @ctx.lineWidth = 0.2
-      sq = _.min([@canvas.height, @canvas.width]) / _.max([@life.field.ysize, @life.field.xsize])
+      sq = @getBox()
       for i in [0..@life.field.xsize]
         @ctx.beginPath()
         @ctx.moveTo(i * sq, 0)
@@ -88,8 +88,10 @@ require(['life', 'utils/underscore', 'utils/jquery'],
         @ctx.lineTo(@life.field.ysize * sq, i * sq)
         @ctx.stroke()
 
+    getBox: () -> utils.min(@canvas.height, @canvas.width) / utils.max(@life.field.ysize, @life.field.xsize)
+
     drawLife: () ->
-      sq = _.min([@canvas.height, @canvas.width]) / _.max([@life.field.ysize, @life.field.xsize])
+      sq = @getBox()
       for x in [0...@life.field.xsize]
         for y in [0...@life.field.ysize]
           if @life.field.get(x, y)

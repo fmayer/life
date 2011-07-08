@@ -27,5 +27,5 @@ define(
     max = (x, y) -> if x > y then x else y
     min = (x, y) -> if x < y then x else y
 
-    return {sum: sum}
+    return {sum: sum, min: min, max: max}
 )
