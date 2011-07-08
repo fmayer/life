@@ -24,6 +24,8 @@ define(
       for elem in arr
         init += elem
       init
+    max = (x, y) -> if x > y then x else y
+    min = (x, y) -> if x < y then x else y
 
     return {sum: sum}
 )
