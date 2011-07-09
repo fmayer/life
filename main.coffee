@@ -165,7 +165,8 @@ require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquer
     $("#freq").change(->
       sched.setInterval(1000 / parseFloat($(@).val()))
     )
-    $("#perma").click(->
+    $("#perma").click((e) ->
+      e.preventDefault()
       l = window.location
       $("#permap").val(
         l.protocol + '//' + l.host + l.pathname + l.search + "#" + b64.encode(JSON.stringify(game.life.field.getSet())).replace('\n', '')
