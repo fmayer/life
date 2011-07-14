@@ -172,5 +172,12 @@ require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquer
         l.protocol + '//' + l.host + l.pathname + l.search + "#" + b64.encode(JSON.stringify(game.life.field.getSet())).replace('\n', '')
       )
     )
+    GET = utils.parseGet(window.location.search)
+    if GET.freq?
+      sched.setInterval(parseFloat(GET.freq))
+      $("#freq").val(GET.freq + " Hz")
+    if GET.play?
+      if parseInt(GET.play)
+        $("#toggle").click()
   )
 )

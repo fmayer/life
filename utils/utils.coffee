@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-define(
+define(['utils/underscore.string']
   ->
     sum = (arr, init=0) ->
       for elem in arr
@@ -33,6 +33,11 @@ define(
       else
         m
     rem = (x, y) -> x % y
-
-    return {sum: sum, min: min, max: max, mod: mod, rem: rem}
+    parseGet = (search) ->
+      ret = {}
+      for v in _.words(search[1...], '&')
+        [k, v] = _.words(v, '=')
+        ret[k] = v
+      ret
+    return {sum: sum, min: min, max: max, mod: mod, rem: rem, parseGet: parseGet}
 )
