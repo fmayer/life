@@ -4,21 +4,31 @@
 	<head>
 		<title>Game of Life</title>
 		<script data-main="main" src="utils/require.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'> 
+		<link rel="stylesheet" href="screen.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="mobile.css" type="text/css" media="handheld" />
 	</head>
 	<body>
-		<canvas id="gol" height="300" width="300">
-			This website is too fancy for your browser. I am sorry.
-		</canvas><br/>
-		<input type="button" id="clear" value="Clear"/>
-		<input type="button" id="toggle" value="Play"/>
-		<input id="freq" value="2 Hz" size="5"/>
-		<br/>
-		<a href="#" id="perma">Permalink</a>
-		<input id="permap"/>
+		<div class="content">
+			<h1>Game of Life</h1>
+			<h2>The Game</h2>
+		<center>
+			<canvas id="gol" height="300" width="300">
+				This website is too fancy for your browser. I am sorry.
+			</canvas><br/>
+			<input type="button" id="clear" value="Clear"/>
+			<input type="button" id="toggle" value="Play"/>
+			<input id="freq" value="2 Hz" size="5"/>
+			<br/>
+			<a href="#" id="perma">Permalink</a>
+			<input id="permap"/>
+		</center>
+		<h2>About</h2>
 		<p>
-			Written by Florian Mayer
+			This is an implementation of <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life">Conway's Game of Life</a> utilizing HTML5 canvas and Coffeescript. Written by Florian Mayer
 			&lt;<a href="mailto:florian.mayer@bitsrc.org">florian.mayer@bitsrc.org</a>&gt;.
 			Source available at <a href="https://github.com/segfaulthunter/life">GitHub</a>.
 		</p>
+		</div>
 	</body>
 </html>
