@@ -169,7 +169,7 @@ require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquer
       e.preventDefault()
       l = window.location
       $("#permap").val(
-        l.protocol + '//' + l.host + l.pathname + l.search + "#" + b64.encode(JSON.stringify(game.life.field.getSet())).replace('\n', '')
+        l.protocol + '//' + l.host + l.pathname + "?freq=" + 1000 / sched.interval + "&play=" + (if sched.running() then "1" else "0") + "#" + b64.encode(JSON.stringify(game.life.field.getSet())).replace('\n', '')
       )
     )
     GET = utils.parseGet(window.location.search)
