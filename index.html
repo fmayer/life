@@ -5,14 +5,15 @@
 		<title>Game of Life</title>
 		<script data-main="main" src="utils/require.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'> 
-		<link rel="stylesheet" href="screen.css" type="text/css" media="screen" />
-		<link rel="stylesheet" href="mobile.css" type="text/css" media="handheld" />
+		<link rel="stylesheet" href="screen.css" type="text/css" id="css" />
 	</head>
 	<body>
 		<div class="content">
 			<h1>Game of Life</h1>
+			<a href="#" id="mobile" class="csschange" ref="mobile.css">Change to mobile view</a>
+			<a href="#" id="screen" class="csschange" ref="screen.css">Change to normal view</a>
 			<h2>The Game</h2>
-		<center>
+		<div class="center">
 			<canvas id="gol" height="300" width="300">
 				This website is too fancy for your browser. I am sorry.
 			</canvas><br/>
@@ -22,7 +23,7 @@
 			<br/>
 			<a href="#" id="perma">Permalink</a>
 			<input id="permap"/>
-		</center>
+		</div>
 		<h2>About</h2>
 		<p>
 			This is an implementation of <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life">Conway's Game of Life</a> utilizing HTML5 canvas and Coffeescript. Written by Florian Mayer

@@ -18,8 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquery', 'utils/json2'],
-(li, utils, b64) ->
+require(['life', 'utils/utils', 'utils/base64', 'utils/mobile', 'utils/underscore', 'utils/jquery', 'utils/json2'],
+(li, utils, b64, mobile) ->
   leftTop = (elem) ->
     x = 0
     y = 0
@@ -172,6 +172,7 @@ require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquer
         l.protocol + '//' + l.host + l.pathname + "?freq=" + 1000 / sched.interval + "&play=" + (if sched.running() then "1" else "0") + "#" + b64.encode(JSON.stringify(game.life.field.getSet())).replace('\n', '')
       )
     )
+
     GET = utils.parseGet(window.location.search)
     if GET.freq?
       sched.setInterval(1000 / parseFloat(GET.freq))
@@ -179,5 +180,23 @@ require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquer
     if GET.play?
       if parseInt(GET.play)
         $("#toggle").click()
+    if GET.css?
+      $("#css").attr("href", GET.css + '.css')
+    else
+      $("#css").attr("href", if mobile.isMobile(navigator.userAgent||navigator.vendor||window.opera) then 'mobile.css' else 'screen.css')
+
+    showCorrectCSSChange = ->
+      for elem in $(".csschange")
+        if $(elem).attr('ref') == $("#css").attr('href')
+          $(elem).hide()
+        else
+          $(elem).show()
+
+    $(".csschange").click((e) ->
+      e.preventDefault()
+      $("#css").attr("href", $(@).attr("ref"))
+      showCorrectCSSChange()
+    )
+    showCorrectCSSChange()
   )
 )
