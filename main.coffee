@@ -174,7 +174,7 @@ require(['life', 'utils/utils', 'utils/base64', 'utils/underscore', 'utils/jquer
     )
     GET = utils.parseGet(window.location.search)
     if GET.freq?
-      sched.setInterval(parseFloat(GET.freq))
+      sched.setInterval(1000 / parseFloat(GET.freq))
       $("#freq").val(GET.freq + " Hz")
     if GET.play?
       if parseInt(GET.play)
