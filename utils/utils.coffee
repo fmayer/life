@@ -26,12 +26,7 @@ define(['utils/underscore.string']
       init
     max = (x, y) -> if x > y then x else y
     min = (x, y) -> if x < y then x else y
-    mod = (x, y) ->
-      m = x % y
-      if m < 0
-        m + y
-      else
-        m
+    mod = (x, y) -> if (m = x % y) < 0 then m + y else m
     rem = (x, y) -> x % y
     parseGet = (search) ->
       ret = {}
